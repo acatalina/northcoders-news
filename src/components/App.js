@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const App = React.createClass({
-  render: function () {
+class App extends Component {
+  render() {
     return (
       <div>
         <h3 className='title is-3'>All Articles</h3>
@@ -9,6 +9,10 @@ const App = React.createClass({
       </div>
     );
   }
-});
+}
+
+App.propTypes = {
+  children: React.PropTypes.element.isRequired
+};
 
 export default App;
