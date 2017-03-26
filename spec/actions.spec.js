@@ -31,4 +31,33 @@ describe('actions', () => {
       });
     });
   });
+
+  describe('actions.fetchTopicsSuccess', () => {
+    it('returns the expected action', () => {
+      const action = actions.fetchTopicsSuccess({});
+      expect(action).to.eql({
+        type: types.FETCH_TOPICS_SUCCESS,
+        data: {}
+      });
+    });
+  });
+
+  describe('actions.fetchTopicsError', () => {
+    it('returns the expected action', () => {
+      const action = actions.fetchTopicsError({});
+      expect(action).to.eql({
+        type: types.FETCH_TOPICS_ERROR,
+        error: {}
+      });
+    });
+  });
+
+  describe('actions.fetchTopicsRequest', () => {
+    it('returns the expected action', () => {
+      const action = actions.fetchTopicsRequest();
+      expect(action).to.eql({
+        type: types.FETCH_TOPICS_REQUEST
+      });
+    });
+  });
 });

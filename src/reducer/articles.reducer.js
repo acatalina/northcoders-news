@@ -9,7 +9,7 @@ const initialState = {
 
 function articlesReducer (prevState = initialState, action) {
   switch (action.type) {
-    case types.FETCH_ARTICLES_REQUEST: {
+    case types.FETCH_TOPICS_REQUEST: {
       const newState = Object.assign({}, prevState);
       newState.fetching = true;
       return newState;
