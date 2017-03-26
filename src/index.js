@@ -20,6 +20,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path='/' component={App}>
         <IndexRoute component={ArticleList}/>
+        <Route path="/topics/:topic" component={ArticleList}/>
       </Route>
     </Router>
   </Provider>,

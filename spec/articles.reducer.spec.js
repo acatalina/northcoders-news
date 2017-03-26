@@ -3,8 +3,8 @@ import articlesReducer, {getTopArticles} from '../src/reducer/articles.reducer';
 import * as actions from '../src/actions/actions';
 
 describe('articles reducer', () => {
-  it('FETCH_TOPICS_REQUESTS', () => {
-    const action = actions.fetchTopicsRequest();
+  it('handles FETCH_ARTICLES_REQUESTS', () => {
+    const action = actions.fetchArticlesRequest();
     const initialState = {
       fetching: false
     };
@@ -17,17 +17,19 @@ describe('articles reducer', () => {
     expect(actual).to.not.equal(initialState);
   });
   
-  it('FETCH_TOPICS_SUCCESS', () => {
-    const action = actions.fetchArticlesSuccess([{_id: 1, data: 'articles'}]);
+  it('handles FETCH_ARTICLES_SUCCESS', () => {
+    const action = actions.fetchArticlesSuccess([{_id: 1, data: 'articles'}], 'topic');
     const initialState = {
       fetching: true,
-      data: {}
+      data: {},
+      topic: null
     };
     
     const actual = articlesReducer(initialState, action);
     const expected = {
       fetching: false,
-      data: {1: {_id: 1, data: 'articles'}}
+      data: {1: {_id: 1, data: 'articles'}},
+      topic: 'topic'
     };
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(initialState);
@@ -46,6 +48,7 @@ describe('articles reducer', () => {
       error: 'error'
     };
     expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
   });
 });
 

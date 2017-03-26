@@ -2,14 +2,14 @@ import * as types from '../actions/types';
 
 const initialState = {
   data: {},
-  selectedTopic: null,
+  topic: null,
   fetching: false,
   error: null
 };
 
 function articlesReducer (prevState = initialState, action) {
   switch (action.type) {
-    case types.FETCH_TOPICS_REQUEST: {
+    case types.FETCH_ARTICLES_REQUEST: {
       const newState = Object.assign({}, prevState);
       newState.fetching = true;
       return newState;
@@ -18,6 +18,7 @@ function articlesReducer (prevState = initialState, action) {
       const newState = Object.assign({}, prevState);
       newState.data = normaliseData(action.data);
       newState.fetching = false;
+      newState.topic = action.topic;
       return newState;
     }
     case types.FETCH_ARTICLES_ERROR: {

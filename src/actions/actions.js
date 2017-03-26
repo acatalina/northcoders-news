@@ -3,13 +3,19 @@ import axios from 'axios';
 
 import {ROOT} from '../../config';
 
-export function fetchArticles() {
+export function fetchArticles(topic) {
   return (dispatch) => {
+    let URL = `${ROOT}/articles`;
+    
+    if (topic && topic !== 'all') {
+      URL = `${ROOT}/topics/${topic}/articles`;
+    }
+
     dispatch(fetchArticlesRequest());
     axios
-      .get(`${ROOT}/articles`)
+      .get(URL)
       .then(res => {
-        dispatch(fetchArticlesSuccess(res.data.articles));
+        dispatch(fetchArticlesSuccess(res.data.articles, topic));
       })
       .catch(error => {
          dispatch(fetchArticlesError(error));
@@ -17,10 +23,11 @@ export function fetchArticles() {
   };
 }
 
-export function fetchArticlesSuccess(articles) {
+export function fetchArticlesSuccess(articles, topic) {
   return {
     type: types.FETCH_ARTICLES_SUCCESS,
-    data: articles
+    data: articles,
+    topic: topic
   };
 }
 

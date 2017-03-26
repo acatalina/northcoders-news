@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
-import {fetchArticles} from '../actions/actions';
-import {getTopArticles} from '../reducer/articles.reducer';
 import {connect} from 'react-redux';
-
+import {getTopArticles} from '../reducer/articles.reducer';
 import ArticleCard from './ArticleCard';
 
 class ArticleList extends Component {
-  componentDidMount() {
-    this.props.getArticles();
-  }
   render() {
     return (
       <div id='ArticleList'>
@@ -33,13 +28,9 @@ class ArticleList extends Component {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    getArticles: () => {
-      dispatch(fetchArticles());
-    }
-  };
-}
+ArticleList.propTypes = {
+  articles: React.PropTypes.array.isRequired
+};
 
 function mapStateToProps (state) {
   return {
@@ -47,9 +38,4 @@ function mapStateToProps (state) {
   };
 }
 
-ArticleList.propTypes = {
-  getArticles: React.PropTypes.func.isRequired,
-  articles: React.PropTypes.array.isRequired
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
+export default connect(mapStateToProps)(ArticleList);

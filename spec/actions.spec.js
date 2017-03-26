@@ -5,10 +5,11 @@ import {expect} from 'chai';
 describe('actions', () => {
   describe('actions.fetchArticlesSuccess', () => {
     it('returns the expected action', () => {
-      const action = actions.fetchArticlesSuccess({});
+      const action = actions.fetchArticlesSuccess({}, 'topic');
       expect(action).to.eql({
         type: types.FETCH_ARTICLES_SUCCESS,
-        data: {}
+        data: {},
+        topic: 'topic'
       });
     });
   });

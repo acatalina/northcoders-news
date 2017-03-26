@@ -33,7 +33,7 @@ describe('topics reducer', () => {
     expect(actual).to.not.equal(initialState);
   });
 
-  it('handles FETCH_ARTICLES_ERROR', () => {
+  it('handles FETCH_TOPICS_ERROR', () => {
     const action = actions.fetchTopicsError('error');
     const initialState = {
       fetching: true,
