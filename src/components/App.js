@@ -6,14 +6,16 @@ import {NavBar} from './NavBar';
 class App extends Component {
   componentDidMount () {
     this.props.fetchTopics();
-    this.props.fetchArticles(this.props.params.topic);
+    this.props.fetchArticles(this.getTopic(this.props.params));
   }
   componentWillReceiveProps(newProps) {
-    const newTopic = newProps.params.topic;
-    const oldTopic = this.props.topic;
-    
+    if (newProps.fetchingArticles || this.props.fetchingArticles) return;
+
+    const newTopic = this.getTopic(newProps.params);
+    const oldTopic = this.getTopic(this.props);
+
     if (newTopic !== oldTopic) {
-      this.props.fetchArticles(newProps.params.topic);
+      this.props.fetchArticles(newTopic);
     }
   }
   render() {
@@ -24,6 +26,27 @@ class App extends Component {
         {this.props.children}
       </div>
     );
+  }
+  getTopic(obj) {
+    switch (true) {
+      case obj.hasOwnProperty('topic'):
+        return obj['topic'];
+      case obj.hasOwnProperty('article'): {
+        let artRequest = obj['article'];
+        let article = this.props.articles[artRequest];
+        let topic;
+
+        if (!article) {
+          topic = 'all';
+        } else {
+          topic = article['belongs_to'];
+        }
+
+        return topic;
+      }
+      default:
+        return 'all';
+    }
   }
 }
 
@@ -41,7 +64,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps (state) {
   return {
     topics: state.topics.data,
-    topic: state.articles.topic
+    topic: state.articles.topic,
+    fetchingArticles: state.articles.fetching,
+    articles: state.articles.data
   };
 }
 
@@ -51,7 +76,9 @@ App.propTypes = {
   fetchTopics: React.PropTypes.func.isRequired,
   topics: React.PropTypes.array.isRequired,
   topic: React.PropTypes.string,
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
+  fetchingArticles: React.PropTypes.bool.isRequired,
+  articles: React.PropTypes.object.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

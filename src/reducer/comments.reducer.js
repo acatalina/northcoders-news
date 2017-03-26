@@ -2,26 +2,24 @@ import * as types from '../actions/types';
 
 const initialState = {
   data: {},
-  topic: 'all',
   fetching: false,
   error: null
 };
 
-function articlesReducer(prevState = initialState, action) {
+function commentsReducer (prevState = initialState, action) {
   switch (action.type) {
-    case types.FETCH_ARTICLES_REQUEST: {
+    case types.FETCH_COMMENTS_REQUEST: {
       const newState = Object.assign({}, prevState);
       newState.fetching = true;
       return newState;
     }
-    case types.FETCH_ARTICLES_SUCCESS: {
+    case types.FETCH_COMMENTS_SUCCESS: {
       const newState = Object.assign({}, prevState);
       newState.data = normaliseData(action.data);
       newState.fetching = false;
-      newState.topic = action.topic || 'all';
       return newState;
     }
-    case types.FETCH_ARTICLES_ERROR: {
+    case types.FETCH_COMMENTS_ERROR: {
       const newState = Object.assign({}, prevState);
       newState.error = action.error;
       newState.fetching = false;
@@ -39,15 +37,4 @@ function normaliseData(data) {
   }, {});
 }
 
-export function getTopArticles(state, num) {
-  return Object.keys(state.articles.data)
-    .reduce(function (acc, id) {
-      return acc.concat(state.articles.data[id]);
-    }, [])
-    .sort(function (a, b) {
-      return b.votes - a.votes;
-    })
-    .slice(0, num);
-}
-
-export default articlesReducer;
+export default commentsReducer;

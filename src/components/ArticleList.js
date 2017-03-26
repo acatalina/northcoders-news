@@ -20,7 +20,6 @@ class ArticleList extends Component {
           key={i}
           title={article.title}
           votes={article.votes}
-          comments={article.comments}
           articleId={article._id}
         />
       );

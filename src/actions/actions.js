@@ -77,3 +77,37 @@ export function fetchTopicsRequest () {
     type: types.FETCH_TOPICS_REQUEST
   };
 }
+
+export function fetchComments(article_id) {
+  return (dispatch) => {
+    dispatch(fetchCommentsRequest());
+    axios
+      .get(`${ROOT}/articles/${article_id}/comments`)
+      .then(res => {
+        dispatch(fetchCommentsSuccess(res.data.comments));
+      })
+      .catch(error => {
+         dispatch(fetchCommentsError(error));
+      });
+  };
+}
+
+export function fetchCommentsSuccess(comments) {
+  return {
+    type: types.FETCH_COMMENTS_SUCCESS,
+    data: comments
+  };
+}
+
+export function fetchCommentsError(error) {
+  return {
+    type: types.FETCH_COMMENTS_ERROR,
+    error: error
+  };
+}
+
+export function fetchCommentsRequest() {
+  return {
+    type: types.FETCH_COMMENTS_REQUEST
+  };
+}
