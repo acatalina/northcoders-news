@@ -7,6 +7,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import {createLogger} from 'redux-logger';
 import './css/bulma.css';
 import './css/font-awesome.css';
+import './css/App.css';
 
 import App from './components/App';
 import ArticleList from './components/ArticleList';

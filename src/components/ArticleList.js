@@ -7,7 +7,7 @@ class ArticleList extends Component {
   render() {
     return (
       <div id='ArticleList'>
-        <ul className="articles-list">
+        <ul className="container">
           {this.generateArticles()}
         </ul>
       </div>
