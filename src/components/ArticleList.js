@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getTopArticles} from '../reducer/articles.reducer';
+import {voteArticle} from '../actions/actions';
 import ArticleCard from './ArticleCard';
 
 class ArticleList extends Component {
@@ -14,13 +15,14 @@ class ArticleList extends Component {
     );
   }
   generateArticles() {
-    return this.props.articles.map(function(article, i) {
+    return this.props.articles.map((article, i) => {
       return (
         <ArticleCard 
           key={i}
           title={article.title}
           votes={article.votes}
           articleId={article._id}
+          voteHandler={this.props.voteHandler}
         />
       );
     });
@@ -28,13 +30,22 @@ class ArticleList extends Component {
 }
 
 ArticleList.propTypes = {
-  articles: React.PropTypes.array.isRequired
+  articles: React.PropTypes.array.isRequired,
+  voteHandler: React.PropTypes.func.isRequired
 };
 
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     articles: getTopArticles(state)
   };
 }
 
-export default connect(mapStateToProps)(ArticleList);
+function mapDispatchToProps(dispatch) {
+  return {
+    voteHandler: (article_id, vote) => {
+      dispatch(voteArticle(article_id, vote));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);

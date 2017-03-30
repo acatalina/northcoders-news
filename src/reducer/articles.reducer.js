@@ -9,6 +9,7 @@ const initialState = {
 
 function articlesReducer(prevState = initialState, action) {
   switch (action.type) {
+    case types.VOTE_ARTICLE_REQUEST:
     case types.FETCH_ARTICLES_REQUEST: {
       const newState = Object.assign({}, prevState);
       newState.fetching = true;
@@ -21,6 +22,15 @@ function articlesReducer(prevState = initialState, action) {
       newState.topic = action.topic || 'all';
       return newState;
     }
+    case types.VOTE_ARTICLE_SUCCESS: {
+      const newState = Object.assign({}, prevState);
+      let newData = Object.assign({}, newState.data);
+      newData[action.data._id] = action.data;
+      newState.data = newData;
+      newState.fetching = false;
+      return newState;
+    }
+    case types.VOTE_ARTICLE_ERROR:
     case types.FETCH_ARTICLES_ERROR: {
       const newState = Object.assign({}, prevState);
       newState.error = action.error;

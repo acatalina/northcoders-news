@@ -111,3 +111,72 @@ export function fetchCommentsRequest() {
     type: types.FETCH_COMMENTS_REQUEST
   };
 }
+
+export function voteArticle(article_id, vote) {
+  return (dispatch) => {
+    dispatch(voteArticleRequest());
+    axios
+      .put(`${ROOT}/articles/${article_id}?vote=${vote}`)
+      .then(res => {
+        dispatch(voteArticleSuccess(res.data));
+      })
+      .catch(error => {
+         dispatch(voteArticleError(error));
+      });
+  };
+}
+
+export function voteArticleSuccess(article) {
+  return {
+    type: types.VOTE_ARTICLE_SUCCESS,
+    data: article
+  };
+}
+
+export function voteArticleError(error) {
+  return {
+    type: types.VOTE_ARTICLE_ERROR,
+    error: error
+  };
+}
+
+export function voteArticleRequest() {
+  return {
+    type: types.VOTE_ARTICLE_REQUEST
+  };
+}
+
+export function voteComment(comment_id, vote) {
+  return (dispatch) => {
+    dispatch(voteCommentRequest());
+    axios
+      .put(`${ROOT}/comments/${comment_id}?vote=${vote}`)
+      .then(res => {
+        dispatch(voteCommentSuccess(comment_id, vote));
+      })
+      .catch(error => {
+         dispatch(voteCommentError(error));
+      });
+  };
+}
+
+export function voteCommentSuccess(comment_id, vote) {
+  return {
+    type: types.VOTE_COMMENT_SUCCESS,
+    comment_id: comment_id,
+    vote: vote
+  };
+}
+
+export function voteCommentError(error) {
+  return {
+    type: types.VOTE_COMMENT_ERROR,
+    error: error
+  };
+}
+
+export function voteCommentRequest() {
+  return {
+    type: types.VOTE_COMMENT_REQUEST
+  };
+}

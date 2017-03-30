@@ -50,6 +50,53 @@ describe('articles reducer', () => {
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(initialState);
   });
+
+  it('handles VOTE_ARTICLE_REQUESTS', () => {
+    const action = actions.voteArticleRequest();
+    const initialState = {
+      fetching: false
+    };
+
+    const actual = articlesReducer(initialState, action);
+    const expected = {
+      fetching: true
+    };
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
+  });
+  
+  it('handles VOTE_ARTICLE_SUCCESS', () => {
+    const action = actions.voteArticleSuccess({_id: 1, data: 'new article'});
+    const initialState = {
+      fetching: true,
+      data: {1: {_id: 1, data: 'article'}}
+    };
+    
+    const actual = articlesReducer(initialState, action);
+    const expected = {
+      fetching: false,
+      data: {1: {_id: 1, data: 'new article'}},
+    };
+    expect(actual).to.eql(expected);
+    expect(expected.data).to.not.equal(initialState.data);
+    expect(actual).to.not.equal(initialState);
+  });
+
+  it('handles VOTE_ARTICLE_ERROR', () => {
+    const action = actions.voteArticleError('error');
+    const initialState = {
+      fetching: true,
+      error: null
+    };
+    
+    const actual = articlesReducer(initialState, action);
+    const expected = {
+      fetching: false,
+      error: 'error'
+    };
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
+  });
 });
 
 describe('getTopArticles', () => {

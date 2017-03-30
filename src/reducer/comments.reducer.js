@@ -8,6 +8,7 @@ const initialState = {
 
 function commentsReducer (prevState = initialState, action) {
   switch (action.type) {
+    case types.VOTE_COMMENT_REQUEST:
     case types.FETCH_COMMENTS_REQUEST: {
       const newState = Object.assign({}, prevState);
       newState.fetching = true;
@@ -19,6 +20,22 @@ function commentsReducer (prevState = initialState, action) {
       newState.fetching = false;
       return newState;
     }
+    case types.VOTE_COMMENT_SUCCESS: {
+      const newState = Object.assign({}, prevState);
+      const newData = Object.assign({}, newState.data);
+      let comment = newData[action.comment_id];
+      
+      if (action.vote === 'up') {
+        comment.votes++;
+      } else if (action.vote === 'down') {
+        comment.votes--;
+      }
+      
+      newState.data = newData;
+      newState.fetching = false;
+      return newState;
+    }
+    case types.VOTE_COMMENT_ERROR:
     case types.FETCH_COMMENTS_ERROR: {
       const newState = Object.assign({}, prevState);
       newState.error = action.error;
