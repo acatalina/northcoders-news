@@ -180,3 +180,37 @@ export function voteCommentRequest() {
     type: types.VOTE_COMMENT_REQUEST
   };
 }
+
+export function addComment(article_id, comment) {
+  return (dispatch) => {
+    dispatch(addCommentRequest());
+    axios
+      .post(`${ROOT}/comments/${article_id}/comments`, {comment: comment})
+      .then(res => {
+        dispatch(addCommentSuccess(res.comment));
+      })
+      .catch(error => {
+         dispatch(addCommentError(error));
+      });
+  };
+}
+
+export function addCommentSuccess(comment) {
+  return {
+    type: types.ADD_COMMENT_SUCCESS,
+    comment: comment
+  };
+}
+
+export function addCommentError(error) {
+  return {
+    type: types.ADD_COMMENT_ERROR,
+    error: error
+  };
+}
+
+export function addCommentRequest() {
+  return {
+    type: types.ADD_COMMENT_REQUEST
+  };
+}

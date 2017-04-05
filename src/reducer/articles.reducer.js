@@ -1,4 +1,5 @@
 import * as types from '../actions/types';
+import {normaliseData} from '../lib/helpers';
 
 const initialState = {
   data: {},
@@ -40,13 +41,6 @@ function articlesReducer(prevState = initialState, action) {
     default:
       return prevState;
   }
-}
-
-function normaliseData(data) {
-  return data.reduce((acc, item) => {
-    acc[item._id] = item;
-    return acc;
-  }, {});
 }
 
 export function getTopArticles(state, num) {

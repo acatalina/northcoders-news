@@ -1,4 +1,5 @@
 import * as types from '../actions/types';
+import {normaliseData} from '../lib/helpers';
 
 const initialState = {
   data: {},
@@ -8,6 +9,7 @@ const initialState = {
 
 function commentsReducer (prevState = initialState, action) {
   switch (action.type) {
+    case types.ADD_COMMENT_REQUEST:
     case types.VOTE_COMMENT_REQUEST:
     case types.FETCH_COMMENTS_REQUEST: {
       const newState = Object.assign({}, prevState);
@@ -35,6 +37,16 @@ function commentsReducer (prevState = initialState, action) {
       newState.fetching = false;
       return newState;
     }
+    case types.ADD_COMMENT_SUCCESS: {
+      const newState = Object.assign({}, prevState);
+      const newData = Object.assign({}, newState.data);
+      
+      newData[action.comment._id] = action.comment;
+      newState.data = newData;
+      newState.fetching = false;
+      return newState;
+    }
+    case types.ADD_COMMENT_ERROR:
     case types.VOTE_COMMENT_ERROR:
     case types.FETCH_COMMENTS_ERROR: {
       const newState = Object.assign({}, prevState);
@@ -45,13 +57,6 @@ function commentsReducer (prevState = initialState, action) {
     default:
       return prevState;
   }
-}
-
-function normaliseData(data) {
-  return data.reduce((acc, item) => {
-    acc[item._id] = item;
-    return acc;
-  }, {});
 }
 
 export default commentsReducer;

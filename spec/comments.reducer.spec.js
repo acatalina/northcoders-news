@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import commentsReducer from '../src/reducer/comments.reducer';
 import * as actions from '../src/actions/actions';
 
-describe('comments reducer', () => {
+describe('comments.reducer', () => {
   it('handles FETCH_COMMENTS_REQUESTS', () => {
     const action = actions.fetchCommentsRequest();
     const initialState = {
@@ -97,6 +97,51 @@ describe('comments reducer', () => {
 
   it('handles VOTE_COMMENT_ERROR', () => {
     const action = actions.voteCommentError('error');
+    const initialState = {
+      fetching: true,
+      error: null
+    };
+    
+    const actual = commentsReducer(initialState, action);
+    const expected = {
+      fetching: false,
+      error: 'error'
+    };
+    expect(actual).to.eql(expected);
+  });
+
+  it('handles ADD_COMMENT_REQUESTS', () => {
+    const action = actions.addCommentRequest();
+    const initialState = {
+      fetching: false
+    };
+
+    const actual = commentsReducer(initialState, action);
+    const expected = {
+      fetching: true
+    };
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
+  });
+
+  it('handles ADD_COMMENT_SUCCESS', () => {
+    const action = actions.addCommentSuccess({_id: 2, comment: 'test'});
+    const initialState = {
+      fetching: true,
+      data: {1: {comment: 'test'}}
+    };
+    
+    const actual = commentsReducer(initialState, action);
+    const expected = {
+      fetching: false,
+      data: {1: {comment: 'test'}, 2: {_id: 2, comment: 'test'}}
+    };
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
+  });
+
+  it('handles ADD_COMMENT_ERROR', () => {
+    const action = actions.addCommentError('error');
     const initialState = {
       fetching: true,
       error: null

@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import topicsReducer from '../src/reducer/topics.reducer';
 import * as actions from '../src/actions/actions';
 
-describe('topics reducer', () => {
+describe('topics.reducer', () => {
   it('handles FETCH_TOPICS_REQUESTS', () => {
     const action = actions.fetchTopicsRequest();
     const initialState = {

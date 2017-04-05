@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import articlesReducer, {getTopArticles} from '../src/reducer/articles.reducer';
 import * as actions from '../src/actions/actions';
 
-describe('articles reducer', () => {
+describe('articles.reducer', () => {
   it('handles FETCH_ARTICLES_REQUESTS', () => {
     const action = actions.fetchArticlesRequest();
     const initialState = {
