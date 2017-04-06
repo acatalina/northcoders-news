@@ -1,18 +1,11 @@
-function normaliseData(data) {
-  return data.reduce((acc, item) => {
-    acc[item._id] = item;
-    return acc;
-  }, {});
-}
-
-function getTopic(props) {
+const getTopic = (props) => {
   let {params} = props;
-  
+
   switch (true) {
     case params.hasOwnProperty('topic'):
       return params['topic'];
-    case params.hasOwnProperty('article'): {
-      let artRequest = params['article'];
+    case params.hasOwnProperty('article_id'): {
+      let artRequest = params['article_id'];
       let article = props.articles[artRequest];
       let topic;
 
@@ -27,9 +20,22 @@ function getTopic(props) {
     default:
       return 'all';
   }
-}
+};
+
+const getTime = (date) => {
+    let currentDate = new Date();
+    let tweetDate = new Date(date);
+    let diffHours = currentDate.getHours() - tweetDate.getHours();
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    if (currentDate.toDateString() !== tweetDate.toDateString()) {
+      return tweetDate.getDate() + ' ' + months[tweetDate.getMonth()];
+    } else {
+      return diffHours ? diffHours + 'h' : 'less than an hour ago';
+    }
+  }
 
 module.exports = {
-  normaliseData,
-  getTopic
+  getTopic,
+  getTime
 };

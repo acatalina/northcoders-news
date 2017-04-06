@@ -1,5 +1,4 @@
 import * as types from '../actions/types';
-import {normaliseData} from '../lib/helpers';
 
 const initialState = {
   data: {},
@@ -69,5 +68,12 @@ function commentsReducer (prevState = initialState, action) {
       return prevState;
   }
 }
+
+const normaliseData = (data) => {
+  return data.reduce((acc, item) => {
+    acc[item._id] = item;
+    return acc;
+  }, {});
+};
 
 export default commentsReducer;

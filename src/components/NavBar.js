@@ -2,6 +2,7 @@ import React from 'react';
 import NavLink from './NavLink';
 
 export const NavBar = (props) => {
+  console.log(props);
   return (
     <nav className="nav has-shadow">
       <ul className="nav-center">
@@ -19,8 +20,8 @@ function generateTopics(topics) {
   return [{title: 'all'}].concat(topics).map((topic, i) => {
     topic.title = topic.title.toUpperCase();
     return (
-      <li key={i}
-        className="nav-item"
+      <li className="nav-item" 
+        key={i}
         value={topic.title}>
           <NavLink to={`/topics/${topic.title}`}>
             {topic.title}

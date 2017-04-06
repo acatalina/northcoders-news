@@ -17,7 +17,6 @@ class ArticlePage extends Component {
 
     this.inputHandler = this.inputHandler.bind(this);
     this.submitHandler = this.submitHandler.bind(this);
-    this.deleteHandler = this.deleteHandler.bind(this);
   }
   componentDidMount () {
     this.props.fetchComments(this.props.params.article_id);
@@ -26,18 +25,21 @@ class ArticlePage extends Component {
     if (!Object.keys(this.props.articles).length) return <Loading />;
     
     return (
-      <section className="container box">
-        {this.generateArticle()}
-        <ul className="box">Comments:
-          <form className="box" onSubmit={this.submitHandler}>
-            <input placeholder="new comment" 
+      <section className="section">
+        <div className="container box">
+          {this.generateArticle()}
+          <form className="box has-text-centered is-marginless form" 
+            onSubmit={this.submitHandler}>
+            <textarea className="fullwidth em1and5" placeholder="new comment" 
               value={this.state.input}
-              onChange={this.inputHandler}
-            />
-            <input type="submit" value="send"/>
+              onChange={this.inputHandler}/>
+            <input className="button is-success uppercase" 
+              type="submit" value="post"/>
           </form>
-          {this.generateComments()}
-        </ul>
+          <ul className="box removeBorderRadiusTop">
+            {this.generateComments()}
+          </ul>
+        </div>
       </section>
     );
   }
@@ -59,10 +61,10 @@ class ArticlePage extends Component {
   }
   generateComments() {
     let {comments} = this.props;
-
+    
     return Object.keys(comments).map((key, i) => {
       let comment = comments[key];
-
+      
       return (
         <Comment 
           key={i}
@@ -88,8 +90,8 @@ class ArticlePage extends Component {
     event.preventDefault();
 
     let {article_id} = this.props.params;
-    let {input} = this.state.input;
-    
+    let {input} = this.state;
+
     this.props.addComment(article_id, input);
   }
 }

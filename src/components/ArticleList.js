@@ -7,11 +7,11 @@ import ArticleCard from './ArticleCard';
 class ArticleList extends Component {
   render() {
     return (
-      <div id='ArticleList'>
+      <section className="section">
         <ul className="container">
           {this.generateArticles()}
         </ul>
-      </div>
+      </section>
     );
   }
   generateArticles() {

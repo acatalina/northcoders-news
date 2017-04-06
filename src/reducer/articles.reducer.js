@@ -1,5 +1,4 @@
 import * as types from '../actions/types';
-import {normaliseData} from '../lib/helpers';
 
 const initialState = {
   data: {},
@@ -13,11 +12,13 @@ function articlesReducer(prevState = initialState, action) {
     case types.VOTE_ARTICLE_REQUEST:
     case types.FETCH_ARTICLES_REQUEST: {
       const newState = Object.assign({}, prevState);
+      
       newState.fetching = true;
       return newState;
     }
     case types.FETCH_ARTICLES_SUCCESS: {
       const newState = Object.assign({}, prevState);
+      
       newState.data = normaliseData(action.data);
       newState.fetching = false;
       newState.topic = action.topic || 'all';
@@ -25,7 +26,8 @@ function articlesReducer(prevState = initialState, action) {
     }
     case types.VOTE_ARTICLE_SUCCESS: {
       const newState = Object.assign({}, prevState);
-      let newData = Object.assign({}, newState.data);
+      const newData = Object.assign({}, newState.data);
+      
       newData[action.data._id] = action.data;
       newState.data = newData;
       newState.fetching = false;
@@ -34,6 +36,7 @@ function articlesReducer(prevState = initialState, action) {
     case types.VOTE_ARTICLE_ERROR:
     case types.FETCH_ARTICLES_ERROR: {
       const newState = Object.assign({}, prevState);
+      
       newState.error = action.error;
       newState.fetching = false;
       return newState;
@@ -42,6 +45,13 @@ function articlesReducer(prevState = initialState, action) {
       return prevState;
   }
 }
+
+const normaliseData = (data) => {
+  return data.reduce((acc, item) => {
+    acc[item._id] = item;
+    return acc;
+  }, {});
+};
 
 export function getTopArticles(state, num) {
   return Object.keys(state.articles.data)

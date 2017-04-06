@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import {fetchTopics, fetchArticles} from '../actions/actions';
 import {NavBar} from './NavBar';
 import {getTopic} from '../lib/helpers';
+import Header from './Header';
 
 class App extends Component {
   componentDidMount () {
     this.props.fetchTopics();
-    this.props.fetchArticles(this.getTopic(this.props));
+    this.props.fetchArticles(getTopic(this.props));
   }
   componentWillReceiveProps(newProps) {
     if (newProps.fetchingArticles || this.props.fetchingArticles) return;
@@ -22,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1 className="title is-3">northcoders news</h1>
+        <Header/>
         <NavBar topics={this.props.topics}/>
         {this.props.children}
       </div>

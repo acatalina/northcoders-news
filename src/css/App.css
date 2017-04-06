@@ -5,7 +5,26 @@
   text-align: center;
 }
 
-.active {
-  font-weight: 900;
-  text-decoration: underline;
+.uppercase {
+  text-transform: uppercase;
+}
+
+.fullwidth {
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  background-color: #adedc2;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.em1and5 {
+  font-size: 1.5em;
+}
+
+.removeBorderRadiusTop {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

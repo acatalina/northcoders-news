@@ -7,6 +7,8 @@ export function fetchArticles(topic) {
   return (dispatch) => {
     let URL = `${ROOT}/articles`;
     
+    topic = topic.toLowerCase();
+    
     if (topic && topic !== 'all') {
       URL = `${ROOT}/topics/${topic}/articles`;
     }
