@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from './NavLink';
 
-export const NavBar = function(props) {
+export const NavBar = (props) => {
   return (
     <nav className="nav has-shadow">
       <ul className="nav-center">
@@ -17,7 +17,7 @@ NavBar.propTypes = {
   
 function generateTopics(topics) {
   return [{title: 'all'}].concat(topics).map((topic, i) => {
-    topic.title = topic.title.toLowerCase();
+    topic.title = topic.title.toUpperCase();
     return (
       <li key={i}
         className="nav-item"

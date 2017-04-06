@@ -19,9 +19,9 @@ class ArticleList extends Component {
       return (
         <ArticleCard 
           key={i}
+          _id={article._id}
           title={article.title}
           votes={article.votes}
-          articleId={article._id}
           voteHandler={this.props.voteHandler}
         />
       );

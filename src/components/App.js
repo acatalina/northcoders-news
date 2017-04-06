@@ -2,17 +2,18 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchTopics, fetchArticles} from '../actions/actions';
 import {NavBar} from './NavBar';
+import {getTopic} from '../lib/helpers';
 
 class App extends Component {
   componentDidMount () {
     this.props.fetchTopics();
-    this.props.fetchArticles(this.getTopic(this.props.params));
+    this.props.fetchArticles(this.getTopic(this.props));
   }
   componentWillReceiveProps(newProps) {
     if (newProps.fetchingArticles || this.props.fetchingArticles) return;
 
-    const newTopic = this.getTopic(newProps.params);
-    const oldTopic = this.getTopic(this.props);
+    const newTopic = getTopic(newProps);
+    const oldTopic = getTopic(this.props);
 
     if (newTopic !== oldTopic) {
       this.props.fetchArticles(newTopic);
@@ -21,32 +22,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h3 className='title is-3'>northcoders news</h3>
+        <h1 className="title is-3">northcoders news</h1>
         <NavBar topics={this.props.topics}/>
         {this.props.children}
       </div>
     );
-  }
-  getTopic(obj) {
-    switch (true) {
-      case obj.hasOwnProperty('topic'):
-        return obj['topic'];
-      case obj.hasOwnProperty('article'): {
-        let artRequest = obj['article'];
-        let article = this.props.articles[artRequest];
-        let topic;
-
-        if (!article) {
-          topic = 'all';
-        } else {
-          topic = article['belongs_to'];
-        }
-
-        return topic;
-      }
-      default:
-        return 'all';
-    }
   }
 }
 

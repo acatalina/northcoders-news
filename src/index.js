@@ -23,7 +23,7 @@ ReactDOM.render(
       <Route path='/' component={App}>
         <IndexRoute component={ArticleList}/>
         <Route path="/topics/:topic" component={ArticleList}/>
-        <Route path="/articles/:article" component={ArticlePage}/>
+        <Route path="/articles/:article_id" component={ArticlePage}/>
       </Route>
     </Router>
   </Provider>,

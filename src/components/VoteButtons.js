@@ -1,11 +1,15 @@
 import React from 'react';
 
-const VoteButtons = function(props) {
+const VoteButtons = (props) => {
   return (
     <span className="column is-narrow rows">
-      <button onClick={props.voteHandler.bind(null, 'up')}><i className="fa fa-arrow-up row"></i></button>
+      <button onClick={props.voteHandler.bind(null, 'up')}>
+        <i className="fa fa-arrow-up row"></i>
+      </button>
       <span className="row">{props.votes}</span>
-      <button onClick={props.voteHandler.bind(null, 'down')}><i className="fa fa-arrow-down row"></i></button>
+      <button onClick={props.voteHandler.bind(null, 'down')}>
+        <i className="fa fa-arrow-down row"></i>
+      </button>
     </span>
   );
 };

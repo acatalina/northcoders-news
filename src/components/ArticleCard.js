@@ -2,14 +2,14 @@ import React from 'react';
 import NavLink from './NavLink';
 import VoteButtons from './VoteButtons';
 
-const ArticleCard = function (props) {
+const ArticleCard = (props) => {
   return (
     <div className="box">
       <article className="columns">
         <VoteButtons votes={props.votes} 
-          voteHandler={props.voteHandler.bind(null, props.articleId)} 
+          voteHandler={props.voteHandler.bind(null, props._id)} 
         />
-        <NavLink to={`/articles/${props.articleId}`}>
+        <NavLink to={`/articles/${props._id}`}>
         <div className="column">
           <div className="content">
             <h3 className="title is-3">{props.title}</h3>
@@ -24,7 +24,7 @@ const ArticleCard = function (props) {
 ArticleCard.propTypes = {
   votes: React.PropTypes.number.isRequired,
   title: React.PropTypes.string.isRequired,
-  articleId: React.PropTypes.string.isRequired,
+  _id: React.PropTypes.string.isRequired,
   voteHandler: React.PropTypes.func.isRequired
 };
 

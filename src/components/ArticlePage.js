@@ -1,16 +1,26 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchComments, fetchArticles, voteComment, voteArticle} from '../actions/actions';
+import {fetchComments, fetchArticles, voteComment, 
+  voteArticle, addComment, deleteComment
+} from '../actions/actions';
 import Loading from './Loading';
-import VoteButtons from './VoteButtons';
-import ArticlePageInfo from './ArticlePageInfo';
+import Article from './Article';
+import Comment from './Comment';
 
 class ArticlePage extends Component {
-  componentDidMount () {
-    this.props.fetchComments(this.props.params.article);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      input: ''
+    };
+
+    this.inputHandler = this.inputHandler.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.deleteHandler = this.deleteHandler.bind(this);
   }
-  componentWillReceiveProps(newProps) {
-    console.log(newProps);
+  componentDidMount () {
+    this.props.fetchComments(this.props.params.article_id);
   }
   render() {
     if (!Object.keys(this.props.articles).length) return <Loading />;
@@ -19,9 +29,12 @@ class ArticlePage extends Component {
       <section className="container box">
         {this.generateArticle()}
         <ul className="box">Comments:
-          <form className="box">
-            <input placeholder="new comment" />
-            <button>send</button>
+          <form className="box" onSubmit={this.submitHandler}>
+            <input placeholder="new comment" 
+              value={this.state.input}
+              onChange={this.inputHandler}
+            />
+            <input type="submit" value="send"/>
           </form>
           {this.generateComments()}
         </ul>
@@ -29,14 +42,13 @@ class ArticlePage extends Component {
     );
   }
   generateArticle() {
-    let articleId = this.props.params.article;
-    let allArticles = this.props.articles;
-    let article = allArticles[articleId];
+    let {article_id} = this.props.params;
+    let article = this.props.articles[article_id];
 
     return (
-      <ArticlePageInfo 
-        key={articleId}
-        articleId={articleId}
+      <Article
+        key={article_id}
+        _id={article_id}
         votes={article.votes}
         voteHandler={this.props.voteArticle}
         title={article.title}
@@ -46,22 +58,39 @@ class ArticlePage extends Component {
     );
   }
   generateComments() {
-    let comments = this.props.comments;
+    let {comments} = this.props;
 
     return Object.keys(comments).map((key, i) => {
+      let comment = comments[key];
+
       return (
-        <li key={i} className="box columns">
-          <VoteButtons votes={comments[key].votes} 
-            voteHandler={this.props.voteComment.bind(null, comments[key]._id)}
-          />
-          <div className="column">
-            <p>{comments[key].body}</p>
-            <span>by: {comments[key].created_by}</span>
-            <span>at {comments[key].created_at}</span>
-          </div>
-        </li>
+        <Comment 
+          key={i}
+          _id={comment._id}
+          votes={comment.votes}
+          voteComment={this.props.voteComment}
+          body={comment.body}
+          created_by={comment.created_by}
+          created_at={comment.created_at}
+          deleteComment={this.props.deleteComment}
+        />
       );
     });
+  }
+  inputHandler(event) {
+    let {value} = event.target;
+
+    this.setState({
+      input: value
+    });
+  }
+  submitHandler(event) {
+    event.preventDefault();
+
+    let {article_id} = this.props.params;
+    let {input} = this.state.input;
+    
+    this.props.addComment(article_id, input);
   }
 }
 
@@ -78,6 +107,12 @@ function mapDispatchToProps(dispatch) {
     },
     voteComment: (comment_id, vote) => {
       dispatch(voteComment(comment_id, vote));
+    },
+    addComment: (article_id, comment) => {
+      dispatch(addComment(article_id, comment));
+    },
+    deleteComment: (comment_id) => {
+      dispatch(deleteComment(comment_id));
     }
   };
 }
@@ -95,7 +130,9 @@ ArticlePage.propTypes = {
   articles: React.PropTypes.object.isRequired,
   comments: React.PropTypes.object.isRequired,
   voteComment: React.PropTypes.func.isRequired,
-  voteArticle: React.PropTypes.func.isRequired
+  voteArticle: React.PropTypes.func.isRequired,
+  addComment: React.PropTypes.func.isRequired,
+  deleteComment: React.PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlePage);

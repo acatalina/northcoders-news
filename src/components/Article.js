@@ -1,11 +1,11 @@
 import React from 'react';
 import VoteButtons from './VoteButtons';
 
-const ArticlePageInfo = function(props) {
+const Article = (props) => {
   return (
-    <article key={props.articleId} className="columns">
+    <article key={props._id} className="columns">
       <VoteButtons votes={props.votes} 
-        voteHandler={props.voteHandler.bind(null, props.articleId)}
+        voteHandler={props.voteHandler.bind(null, props._id)}
       />
       <div className="column">
         <h2 className="title is-3">{props.title}</h2>
@@ -16,8 +16,8 @@ const ArticlePageInfo = function(props) {
   );
 };
 
-ArticlePageInfo.propTypes = {
-  articleId: React.PropTypes.string.isRequired,
+Article.propTypes = {
+  _id: React.PropTypes.string.isRequired,
   votes: React.PropTypes.number.isRequired,
   voteHandler: React.PropTypes.func.isRequired,
   title: React.PropTypes.string.isRequired,
@@ -25,4 +25,4 @@ ArticlePageInfo.propTypes = {
   created_by: React.PropTypes.string.isRequired
 };
 
-export default ArticlePageInfo;
+export default Article;

@@ -185,9 +185,9 @@ export function addComment(article_id, comment) {
   return (dispatch) => {
     dispatch(addCommentRequest());
     axios
-      .post(`${ROOT}/comments/${article_id}/comments`, {comment: comment})
+      .post(`${ROOT}/articles/${article_id}/comments`, {comment: comment})
       .then(res => {
-        dispatch(addCommentSuccess(res.comment));
+        dispatch(addCommentSuccess(res.data.comment));
       })
       .catch(error => {
          dispatch(addCommentError(error));
@@ -212,5 +212,42 @@ export function addCommentError(error) {
 export function addCommentRequest() {
   return {
     type: types.ADD_COMMENT_REQUEST
+  };
+}
+
+export function deleteComment(comment_id) {
+  return (dispatch) => {
+    dispatch(deleteCommentRequest());
+    axios
+      .delete(`${ROOT}/comments/${comment_id}`)
+      .then(res => {
+        if (res.status === '404') {
+          throw Error(res.body);
+        }
+        dispatch(deleteCommentSuccess(comment_id));
+      })
+      .catch(error => {
+         dispatch(deleteCommentError(error));
+      });
+  };
+}
+
+export function deleteCommentSuccess(comment_id) {
+  return {
+    type: types.DELETE_COMMENT_SUCCESS,
+    comment_id: comment_id
+  };
+}
+
+export function deleteCommentError(error) {
+  return {
+    type: types.DELETE_COMMENT_ERROR,
+    error: error
+  };
+}
+
+export function deleteCommentRequest() {
+  return {
+    type: types.DELETE_COMMENT_REQUEST
   };
 }

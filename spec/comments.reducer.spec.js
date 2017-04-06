@@ -154,4 +154,49 @@ describe('comments.reducer', () => {
     };
     expect(actual).to.eql(expected);
   });
+
+  it('handles DELETE_COMMENT_REQUESTS', () => {
+    const action = actions.deleteCommentRequest();
+    const initialState = {
+      fetching: false
+    };
+
+    const actual = commentsReducer(initialState, action);
+    const expected = {
+      fetching: true
+    };
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
+  });
+
+  it('handles DELETE_COMMENT_SUCCESS', () => {
+    const action = actions.deleteCommentSuccess(1);
+    const initialState = {
+      fetching: true,
+      data: {1: {comment: 'test'}}
+    };
+    
+    const actual = commentsReducer(initialState, action);
+    const expected = {
+      fetching: false,
+      data: {}
+    };
+    expect(actual).to.eql(expected);
+    expect(actual).to.not.equal(initialState);
+  });
+
+  it('handles DELETE_COMMENT_ERROR', () => {
+    const action = actions.deleteCommentError('error');
+    const initialState = {
+      fetching: true,
+      error: null
+    };
+    
+    const actual = commentsReducer(initialState, action);
+    const expected = {
+      fetching: false,
+      error: 'error'
+    };
+    expect(actual).to.eql(expected);
+  });
 });

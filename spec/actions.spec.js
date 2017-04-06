@@ -163,4 +163,29 @@ describe('actions', () => {
       });
     });
   });
+
+  describe('deleteComment', () => {
+    it('Request: returns the expected action', () => {
+      const action = actions.deleteCommentRequest();
+      expect(action).to.eql({
+        type: types.DELETE_COMMENT_REQUEST
+      });
+    });
+
+    it('Success: returns the expected action', () => {
+      const action = actions.deleteCommentSuccess(1);
+      expect(action).to.eql({
+        type: types.DELETE_COMMENT_SUCCESS,
+        comment_id: 1
+      });
+    });
+
+    it('Error: returns the expected action', () => {
+      const action = actions.deleteCommentError({});
+      expect(action).to.eql({
+        type: types.DELETE_COMMENT_ERROR,
+        error: {}
+      });
+    });
+  });
 });

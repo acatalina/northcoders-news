@@ -9,6 +9,7 @@ const initialState = {
 
 function commentsReducer (prevState = initialState, action) {
   switch (action.type) {
+    case types.DELETE_COMMENT_REQUEST:
     case types.ADD_COMMENT_REQUEST:
     case types.VOTE_COMMENT_REQUEST:
     case types.FETCH_COMMENTS_REQUEST: {
@@ -46,6 +47,16 @@ function commentsReducer (prevState = initialState, action) {
       newState.fetching = false;
       return newState;
     }
+    case types.DELETE_COMMENT_SUCCESS: {
+      const newState = Object.assign({}, prevState);
+      const newData = Object.assign({}, newState.data);
+      
+      delete newData[action.comment_id];
+      newState.data = newData;
+      newState.fetching = false;
+      return newState;
+    }
+    case types.DELETE_COMMENT_ERROR:
     case types.ADD_COMMENT_ERROR:
     case types.VOTE_COMMENT_ERROR:
     case types.FETCH_COMMENTS_ERROR: {
