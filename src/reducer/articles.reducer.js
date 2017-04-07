@@ -25,10 +25,13 @@ function articlesReducer(prevState = initialState, action) {
       return newState;
     }
     case types.VOTE_ARTICLE_SUCCESS: {
+      let {article} = action.data;
       const newState = Object.assign({}, prevState);
       const newData = Object.assign({}, newState.data);
-      
-      newData[action.data.article._id] = action.data.article;
+      const newArticle = Object.assign({}, newData[article._id]);
+
+      newArticle.votes = article.votes;
+      newData[article._id] = newArticle;
       newState.data = newData;
       newState.fetching = false;
       return newState;
