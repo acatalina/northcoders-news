@@ -28,7 +28,7 @@ function articlesReducer(prevState = initialState, action) {
       const newState = Object.assign({}, prevState);
       const newData = Object.assign({}, newState.data);
       
-      newData[action.data._id] = action.data;
+      newData[action.data.article._id] = action.data.article;
       newState.data = newData;
       newState.fetching = false;
       return newState;
