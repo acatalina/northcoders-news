@@ -253,3 +253,37 @@ export function deleteCommentRequest() {
     type: types.DELETE_COMMENT_REQUEST
   };
 }
+
+export function fetchUsers() {
+  return (dispatch) => {
+    dispatch(fetchUsersRequest());
+    axios
+      .get(`${ROOT}/users`)
+      .then(res => {
+        dispatch(fetchUsersSuccess(res.data.users));
+      })
+      .catch(error => {
+         dispatch(fetchUsersError(error));
+      });
+  };
+}
+
+export function fetchUsersSuccess (users) {
+  return {
+    type: types.FETCH_USERS_SUCCESS,
+    data: users
+  };
+}
+
+export function fetchUsersError (error) {
+  return {
+    type: types.FETCH_USERS_ERROR,
+    error: error
+  };
+}
+
+export function fetchUsersRequest () {
+  return {
+    type: types.FETCH_USERS_REQUEST
+  };
+}
