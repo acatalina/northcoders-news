@@ -66,7 +66,7 @@ describe('articles.reducer', () => {
   });
   
   it('handles VOTE_ARTICLE_SUCCESS', () => {
-    const action = actions.voteArticleSuccess({_id: 1, data: 'new article'});
+    const action = actions.voteArticleSuccess({article: {_id: 1, data: 'new article'}});
     const initialState = {
       fetching: true,
       data: {1: {_id: 1, data: 'article'}}
