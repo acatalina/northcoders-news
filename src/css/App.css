@@ -5,12 +5,16 @@
   text-align: center;
 }
 
-.uppercase {
-  text-transform: uppercase;
+.row {
+  margin: .25em 0;
 }
 
-.fullwidth {
-  width: 100%;
+.text-left {
+  text-align: left;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 .form {
@@ -20,11 +24,19 @@
   border-bottom-right-radius: 0;
 }
 
-.em1and5 {
-  font-size: 1.5em;
+.textarea {
+  min-height: 5em;
 }
 
-.removeBorderRadiusTop {
+.no-top-borderadius {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.margin-auto {
+  margin: auto 0;
+}
+
+a {
+  color: #23d160;
 }

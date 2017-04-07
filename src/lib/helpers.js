@@ -24,18 +24,30 @@ const getTopic = (props) => {
 
 const getTime = (date) => {
     let currentDate = new Date();
-    let tweetDate = new Date(date);
-    let diffHours = currentDate.getHours() - tweetDate.getHours();
+    let elemDate = new Date(date);
+    let diffHours = currentDate.getHours() - elemDate.getHours();
     let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    if (currentDate.toDateString() !== tweetDate.toDateString()) {
-      return tweetDate.getDate() + ' ' + months[tweetDate.getMonth()];
+    if (currentDate.toDateString() !== elemDate.toDateString()) {
+      return elemDate.getDate() + ' ' + months[elemDate.getMonth()];
     } else {
       return diffHours ? diffHours + 'h' : 'less than an hour ago';
     }
-  }
+};
+
+const sortByDate = (obj) => {
+  return Object.keys(obj)
+    .reduce((res, key) => {
+      res.push(obj[key]);
+      return res;
+    }, [])
+    .sort((a, b) => {
+      return new Date(b.created_at) - new Date(a.created_at);
+    });
+};
 
 module.exports = {
   getTopic,
-  getTime
+  getTime,
+  sortByDate
 };

@@ -22,6 +22,8 @@ class ArticleList extends Component {
           _id={article._id}
           title={article.title}
           votes={article.votes}
+          comment_count={article.comment_count}
+          created_by={article.created_by}
           voteHandler={this.props.voteHandler}
         />
       );

@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchComments, fetchArticles, voteComment, 
+import {fetchComments, fetchUsers, voteComment, 
   voteArticle, addComment, deleteComment
 } from '../actions/actions';
 import Loading from './Loading';
 import Article from './Article';
 import Comment from './Comment';
+import PostCommentForm from './PostCommentForm';
+import {sortByDate} from '../lib/helpers';
 
 class ArticlePage extends Component {
   constructor(props) {
@@ -20,6 +22,7 @@ class ArticlePage extends Component {
   }
   componentDidMount () {
     this.props.fetchComments(this.props.params.article_id);
+    this.props.fetchUsers();
   }
   render() {
     if (!Object.keys(this.props.articles).length) return <Loading />;
@@ -28,15 +31,8 @@ class ArticlePage extends Component {
       <section className="section">
         <div className="container box">
           {this.generateArticle()}
-          <form className="box has-text-centered is-marginless form" 
-            onSubmit={this.submitHandler}>
-            <textarea className="fullwidth em1and5" placeholder="new comment" 
-              value={this.state.input}
-              onChange={this.inputHandler}/>
-            <input className="button is-success uppercase" 
-              type="submit" value="post"/>
-          </form>
-          <ul className="box removeBorderRadiusTop">
+          {this.generateForm()}
+          <ul className="box no-top-borderadius">
             {this.generateComments()}
           </ul>
         </div>
@@ -61,6 +57,7 @@ class ArticlePage extends Component {
   }
   generateComments() {
     let {comments} = this.props;
+    let {users} = this.props;
     
     return Object.keys(comments).map((key, i) => {
       let comment = comments[key];
@@ -75,9 +72,20 @@ class ArticlePage extends Component {
           created_by={comment.created_by}
           created_at={comment.created_at}
           deleteComment={this.props.deleteComment}
+          avatar_url={users[comment.created_by].avatar_url}
         />
       );
     });
+  }
+  generateForm() {
+    return (
+      <PostCommentForm 
+        inputHandler={this.inputHandler}
+        submitHandler={this.submitHandler}
+        input={this.state.input}
+        avatar_url={this.props.users.northcoder.avatar_url}
+      />
+    );
   }
   inputHandler(event) {
     let {value} = event.target;
@@ -98,9 +106,6 @@ class ArticlePage extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchArticles: (topic) => {
-      dispatch(fetchArticles(topic));
-    },
     fetchComments: (article_id) => {
       dispatch(fetchComments(article_id));
     },
@@ -115,6 +120,9 @@ function mapDispatchToProps(dispatch) {
     },
     deleteComment: (comment_id) => {
       dispatch(deleteComment(comment_id));
+    },
+    fetchUsers: () => {
+      dispatch(fetchUsers());
     }
   };
 }
@@ -122,7 +130,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     articles: state.articles.data,
-    comments: state.comments.data
+    comments: sortByDate(state.comments.data),
+    users: state.users.data
   };
 }
 
@@ -130,7 +139,8 @@ ArticlePage.propTypes = {
   fetchComments: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
   articles: React.PropTypes.object.isRequired,
-  comments: React.PropTypes.object.isRequired,
+  comments: React.PropTypes.array.isRequired,
+  users: React.PropTypes.object.isRequired,
   voteComment: React.PropTypes.func.isRequired,
   voteArticle: React.PropTypes.func.isRequired,
   addComment: React.PropTypes.func.isRequired,
