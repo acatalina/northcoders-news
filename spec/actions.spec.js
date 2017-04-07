@@ -188,4 +188,29 @@ describe('actions', () => {
       });
     });
   });
+
+  describe('fetchUsers', () => {
+    it('Request: returns the expected action', () => {
+      const action = actions.fetchUsersRequest();
+      expect(action).to.eql({
+        type: types.FETCH_USERS_REQUEST
+      });
+    });
+
+    it('Success: returns the expected action', () => {
+      const action = actions.fetchUsersSuccess([{}]);
+      expect(action).to.eql({
+        type: types.FETCH_USERS_SUCCESS,
+        data: [{}]
+      });
+    });
+
+    it('Error: returns the expected action', () => {
+      const action = actions.fetchUsersError({});
+      expect(action).to.eql({
+        type: types.FETCH_USERS_ERROR,
+        error: {}
+      });
+    });
+  });
 });
