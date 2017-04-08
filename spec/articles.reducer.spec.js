@@ -66,16 +66,16 @@ describe('articles.reducer', () => {
   });
   
   it('handles VOTE_ARTICLE_SUCCESS', () => {
-    const action = actions.voteArticleSuccess({article: {_id: 1, data: 'new article'}});
+    const action = actions.voteArticleSuccess({article: {_id: 1, votes: 3}});
     const initialState = {
       fetching: true,
-      data: {1: {_id: 1, data: 'article'}}
+      data: {1: {_id: 1, votes: 2}}
     };
     
     const actual = articlesReducer(initialState, action);
     const expected = {
       fetching: false,
-      data: {1: {_id: 1, data: 'new article'}},
+      data: {1: {_id: 1, votes: 3}},
     };
     expect(actual).to.eql(expected);
     expect(expected.data).to.not.equal(initialState.data);
