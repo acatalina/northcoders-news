@@ -15,18 +15,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.11.4",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
     "eslint": "^3.17.1",
     "eslint-plugin-jsx": "0.0.2",
     "eslint-plugin-react": "^6.10.0",
     "react-logger": "^1.1.0",
     "redux-logger": "^3.0.0",
-    "style-loader": "^0.13.2",
-    "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2"
   },
@@ -42,6 +36,11 @@
     "redux-thunk": "^2.2.0",
     "webpack": "^2.3.3",
     "css-loader": "^0.27.3",
-    "babel-loader": "^6.2.4"
+    "babel-loader": "^6.2.4",
+    "babel-core": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.8"
   }
 }
