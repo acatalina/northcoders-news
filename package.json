@@ -5,8 +5,12 @@
   "main": "src/app.js",
   "scripts": {
     "test": "mocha ./spec --compilers js:babel-core/register",
-    "dev": "webpack-dev-server",
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "precommit": "npm test",
+    "start": "webpack-dev-server -d --config webpack.dev.config.js --progress --colors",
+    "prod": "NODE_ENV=production node server.js",
+    "build": "webpack --config webpack.prod.config.js -p --progress --colors",
+    "postinstall": "webpack --config webpack.prod.config.js -p --progress --colors"
   },
   "author": "",
   "license": "ISC",
@@ -29,7 +33,9 @@
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "express": "^4.15.2",
     "react": "^15.2.1",
+    "react-addons-css-transition-group": "^15.5.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.6",
     "react-router": "^2.8.1",

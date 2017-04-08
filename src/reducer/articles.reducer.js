@@ -56,15 +56,4 @@ const normaliseData = (data) => {
   }, {});
 };
 
-export function getTopArticles(state, num) {
-  return Object.keys(state.articles.data)
-    .reduce(function (acc, id) {
-      return acc.concat(state.articles.data[id]);
-    }, [])
-    .sort(function (a, b) {
-      return b.votes - a.votes;
-    })
-    .slice(0, num);
-}
-
 export default articlesReducer;

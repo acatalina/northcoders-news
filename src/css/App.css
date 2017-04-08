@@ -1,3 +1,42 @@
+* {font-family: 'News Cycle', sans-serif;}
+
+a {color: #23d160;}
+
+header h1 {font-family: 'Orbitron', sans-serif;}
+
+.article-hover {transition: all .2s ease-in-out;}
+
+.article-hover:hover {
+  background-color: #e2f4e8;
+  box-shadow: 0 2px 18px rgba(10, 10, 10, 0.1), 0 0 20px 5px rgba(10, 10, 10, 0.1);
+}
+
+.form {
+  display: flex;
+  background-color: #e2f4e8;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.textarea {min-height: 5em;}
+
+.footer-custom {
+  text-align: center;
+  font-weight: 700;
+  background-color: #23d160;
+  background-image: linear-gradient(141deg, #12af2f 0%, #23d160 71%, #2ce28a 100%);
+  color: white;
+  width: 100%;
+  padding: 1em;
+}
+
+.footer-custom a { 
+  color: inherit;
+  text-decoration: underline; 
+}
+
+/* Helpers */
+
 .rows {
   display: flex;
   flex-direction: column;
@@ -5,38 +44,53 @@
   text-align: center;
 }
 
-.row {
-  margin: .25em 0;
-}
+.row {margin: .25em 0;}
 
-.text-left {
-  text-align: left;
-}
+.text-left {text-align: left;}
 
-.uppercase {
-  text-transform: uppercase;
-}
-
-.form {
-  display: flex;
-  background-color: #adedc2;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.textarea {
-  min-height: 5em;
-}
+.uppercase {text-transform: uppercase;}
 
 .no-top-borderadius {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-.margin-auto {
-  margin: auto 0;
+.bold {font-weight: 900;}
+
+/* Bulma Modifiers */
+
+.nav-item a.is-tab.is-active, 
+a.nav-item.is-tab.is-active {
+  border-bottom: 3px solid #23d160;
+  border-top: 3px solid transparent;
+  color: #23d160;
 }
 
-a {
-  color: #23d160;
+.nav-item a.is-tab:hover, 
+a.nav-item.is-tab:hover {
+  border-bottom: 1px solid #23d160;
+  border-top: 1px solid transparent;
+}
+
+/* Animations */
+
+.main-anim-appear {opacity: 0.01;}
+
+.main-anim-appear.main-anim-appear-active {
+   opacity: 1;
+   transition: opacity 500ms ease-in;
+}
+
+.main-anim-enter {opacity: 0.01;}
+
+.main-anim-enter.main-anim-enter-active {
+   opacity: 1;
+   transition: opacity 500ms ease-in;
+}
+
+.main-anim-leave {opacity: 1;}
+
+.main-anim-leave.main-anim-leave-active {
+   opacity: 0.01;
+   transition: opacity 500ms ease-in;
 }

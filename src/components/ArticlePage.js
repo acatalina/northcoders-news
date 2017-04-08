@@ -7,7 +7,8 @@ import Loading from './Loading';
 import Article from './Article';
 import Comment from './Comment';
 import PostCommentForm from './PostCommentForm';
-import {sortByDate} from '../lib/helpers';
+import {sortByDate, resetInput} from '../lib/helpers';
+import Animation from 'react-addons-css-transition-group';
 
 class ArticlePage extends Component {
   constructor(props) {
@@ -25,18 +26,22 @@ class ArticlePage extends Component {
     this.props.fetchUsers();
   }
   render() {
-    if (!Object.keys(this.props.articles).length) return <Loading />;
+    if (!this.isReady()) return (<Loading />);
     
     return (
-      <section className="section">
-        <div className="container box">
-          {this.generateArticle()}
-          {this.generateForm()}
-          <ul className="box no-top-borderadius">
-            {this.generateComments()}
-          </ul>
-        </div>
-      </section>
+      <main className="section">
+        <Animation transitionName="main-anim" 
+          transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
+          transitionAppear={true} transitionEnter={true} transitionLeave={true}>
+          <section className="container box">
+            {this.generateArticle()}
+            {this.generateForm()}
+            <ul className="box no-top-borderadius">
+              {this.generateComments()}
+            </ul>
+          </section>
+        </Animation>
+      </main>
     );
   }
   generateArticle() {
@@ -101,8 +106,28 @@ class ArticlePage extends Component {
     let {input} = this.state;
 
     this.props.addComment(article_id, input);
+
+    this.setState(resetInput);
+  }
+  isReady () {
+    return Object.keys(this.props.comments).length && 
+      Object.keys(this.props.articles).length && 
+      Object.keys(this.props.users).length;
   }
 }
+
+ArticlePage.propTypes = {
+  fetchComments: React.PropTypes.func.isRequired,
+  fetchUsers: React.PropTypes.func.isRequired,  
+  params: React.PropTypes.object.isRequired,
+  articles: React.PropTypes.object.isRequired,
+  comments: React.PropTypes.array.isRequired,
+  users: React.PropTypes.object.isRequired,
+  voteComment: React.PropTypes.func.isRequired,
+  voteArticle: React.PropTypes.func.isRequired,
+  addComment: React.PropTypes.func.isRequired,
+  deleteComment: React.PropTypes.func.isRequired
+};
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -134,17 +159,5 @@ function mapStateToProps(state) {
     users: state.users.data
   };
 }
-
-ArticlePage.propTypes = {
-  fetchComments: React.PropTypes.func.isRequired,
-  params: React.PropTypes.object.isRequired,
-  articles: React.PropTypes.object.isRequired,
-  comments: React.PropTypes.array.isRequired,
-  users: React.PropTypes.object.isRequired,
-  voteComment: React.PropTypes.func.isRequired,
-  voteArticle: React.PropTypes.func.isRequired,
-  addComment: React.PropTypes.func.isRequired,
-  deleteComment: React.PropTypes.func.isRequired
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlePage);

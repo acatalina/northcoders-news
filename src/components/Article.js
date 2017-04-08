@@ -1,5 +1,5 @@
 import React from 'react';
-import VoteButtons from './VoteButtons';
+import VoteButtons from './VoteArticleButtons';
 
 const Article = (props) => {
   return (

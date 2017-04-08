@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchTopics, fetchArticles} from '../actions/actions';
-import {NavBar} from './NavBar';
 import {getTopic} from '../lib/helpers';
 import Header from './Header';
+import Footer from './Footer';
+import Animation from 'react-addons-css-transition-group';
 
 class App extends Component {
   componentDidMount () {
@@ -22,10 +23,14 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <Header/>
-        <NavBar topics={this.props.topics}/>
-        {this.props.children}
+      <div id="main">
+        <Animation transitionName="main-anim" 
+					transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
+					transitionAppear={true} transitionEnter={true} transitionLeave={true}>
+          <Header topics={this.props.topics}/>
+          {this.props.children}
+          <Footer />
+        </Animation>
       </div>
     );
   }

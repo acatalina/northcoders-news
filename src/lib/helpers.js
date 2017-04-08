@@ -46,8 +46,15 @@ const sortByDate = (obj) => {
     });
 };
 
+const resetInput = () => {
+ return {
+  input: ''
+ };
+};
+
 module.exports = {
   getTopic,
   getTime,
-  sortByDate
+  sortByDate,
+  resetInput
 };

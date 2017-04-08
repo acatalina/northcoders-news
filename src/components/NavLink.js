@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 const NavLink = (props) => {
   return (
-    <Link {...props} className="is-tab has-shadow" activeClassName="is-active"/>
+    <Link {...props} className="uppercase is-tab has-shadow" activeClassName="is-active"/>
   );
 };
 

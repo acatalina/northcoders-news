@@ -1,21 +1,32 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getTopArticles} from '../reducer/articles.reducer';
 import {voteArticle} from '../actions/actions';
 import ArticleCard from './ArticleCard';
+import Loading from './Loading';
+import Animation from 'react-addons-css-transition-group';
 
 class ArticleList extends Component {
   render() {
+    if (!this.isReady()) return (<Loading />);
+
     return (
-      <section className="section">
+      <main className="section">
         <ul className="container">
-          {this.generateArticles()}
+          <Animation transitionName="main-anim" 
+            transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
+            transitionAppear={true} transitionEnter={true} transitionLeave={true}>
+            {this.generateArticles()}
+          </Animation>
         </ul>
-      </section>
+      </main>
     );
   }
   generateArticles() {
-    return this.props.articles.map((article, i) => {
+    let {articles} = this.props;
+
+    return Object.keys(articles).map((key, i) => {
+      let article = articles[key];
+
       return (
         <ArticleCard 
           key={i}
@@ -29,16 +40,19 @@ class ArticleList extends Component {
       );
     });
   }
+  isReady() {
+    return Object.keys(this.props.articles).length;
+  }
 }
 
 ArticleList.propTypes = {
-  articles: React.PropTypes.array.isRequired,
+  articles: React.PropTypes.object.isRequired,
   voteHandler: React.PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    articles: getTopArticles(state)
+    articles: state.articles.data
   };
 }
 

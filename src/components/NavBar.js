@@ -2,10 +2,14 @@ import React from 'react';
 import NavLink from './NavLink';
 
 export const NavBar = (props) => {
-  console.log(props);
   return (
     <nav className="nav has-shadow">
       <ul className="nav-center">
+        <li className="nav-item is-success">
+          <NavLink to={'/'}>
+            all
+          </NavLink>
+        </li>
         {generateTopics(props.topics)}
       </ul>
     </nav>
@@ -17,16 +21,17 @@ NavBar.propTypes = {
 };
   
 function generateTopics(topics) {
-  return [{title: 'all'}].concat(topics).map((topic, i) => {
-    topic.title = topic.title.toUpperCase();
+  return topics.map((topic, i) => {
     return (
       <li className="nav-item" 
         key={i}
         value={topic.title}>
-          <NavLink to={`/topics/${topic.title}`}>
+          <NavLink to={`/topics/${topic.title.toLowerCase()}`}>
             {topic.title}
           </NavLink>
       </li>
     );
   });
 }
+
+export default NavBar;

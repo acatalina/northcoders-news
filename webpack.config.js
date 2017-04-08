@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: './src/index.js',
@@ -33,5 +34,15 @@ module.exports = {
     contentBase: path.join(__dirname, 'public'),
     publicPath: '/js/',
     port: 9090
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        // This tells the Webpack and Babel for optimization for performance
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(), // Makes sure Webpack will not compile if Errors
+  ],
 };

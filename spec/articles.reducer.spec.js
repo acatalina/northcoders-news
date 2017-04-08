@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import articlesReducer, {getTopArticles} from '../src/reducer/articles.reducer';
+import articlesReducer from '../src/reducer/articles.reducer';
 import * as actions from '../src/actions/actions';
 
 describe('articles.reducer', () => {
@@ -96,21 +96,5 @@ describe('articles.reducer', () => {
     };
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(initialState);
-  });
-});
-
-describe('getTopArticles', () => {
-  it('turns an object into an array sorted by descending order on number of votes', () => {
-    const data = {articles: { data: {'1': {votes: 1}, '2': {votes: 2}}}};
-    const actual = getTopArticles(data);
-    const expected = [{votes: 2}, {votes: 1}];
-    expect(actual).to.eql(expected);
-  });
-
-  it('accepts a second value num to limit the amount of elements in the array', function() {
-    const data = {articles: { data: {'1': {votes: 1}, '2': {votes: 2}}}};
-    const actual = getTopArticles(data, 1);
-    const expected = [{votes: 2}];
-    expect(actual).to.eql(expected);
   });
 });

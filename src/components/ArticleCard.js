@@ -1,10 +1,10 @@
 import React from 'react';
 import NavLink from './NavLink';
-import VoteButtons from './VoteButtons';
+import VoteButtons from './VoteArticleButtons';
 
 const ArticleCard = (props) => {
   return (
-    <li className="box">
+    <li className="box article-hover">
       <article className="columns">
         <VoteButtons votes={props.votes} 
           voteHandler={props.voteHandler.bind(null, props._id)}/>

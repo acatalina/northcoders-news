@@ -46,7 +46,7 @@ Comment.propTypes = {
   created_at: React.PropTypes.number.isRequired,
   deleteComment: React.PropTypes.func.isRequired,
   voteComment: React.PropTypes.func.isRequired,
-  avatar_url: React.PropTypes.string.isRequired
+  avatar_url: React.PropTypes.string
 };
 
 const deleteHandler = (props) => {
