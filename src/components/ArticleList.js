@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {voteArticle} from '../actions/actions';
+import {articlesByVote} from '../lib/helpers';
 import ArticleCard from './ArticleCard';
 import Loading from './Loading';
 import Animation from 'react-addons-css-transition-group';
@@ -46,13 +47,13 @@ class ArticleList extends Component {
 }
 
 ArticleList.propTypes = {
-  articles: React.PropTypes.object.isRequired,
+  articles: React.PropTypes.array.isRequired,
   voteHandler: React.PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
   return {
-    articles: state.articles.data
+    articles: articlesByVote(state)
   };
 }
 

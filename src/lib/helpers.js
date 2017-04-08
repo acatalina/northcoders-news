@@ -52,9 +52,20 @@ const resetInput = () => {
  };
 };
 
+const articlesByVote = (state) => {
+  return Object.keys(state.articles.data)
+    .reduce(function (acc, id) {
+      return acc.concat(state.articles.data[id]);
+    }, [])
+    .sort(function (a, b) {
+      return b.votes - a.votes;
+    });
+};
+
 module.exports = {
   getTopic,
   getTime,
   sortByDate,
-  resetInput
+  resetInput,
+  articlesByVote
 };

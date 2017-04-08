@@ -72,6 +72,10 @@ a.nav-item.is-tab:hover {
   border-top: 1px solid transparent;
 }
 
+.nav-item {
+  font-size: 1.25em;
+}
+
 /* Animations */
 
 .main-anim-appear {opacity: 0.01;}
