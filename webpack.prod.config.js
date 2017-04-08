@@ -1,15 +1,16 @@
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
+  devtool: 'inline-source-map',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public', 'js'),
     publicPath: '/'
   },
-  devtool: 'eval-source-map',
   module: {
-    rules: [
+    loaders: [
       {
         test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
@@ -19,7 +20,7 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.css$/, 
         use: ['style-loader', 'css-loader']
       },
       {
@@ -28,10 +29,13 @@ module.exports = {
       }
     ]
   },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: path.join(__dirname, 'public'),
-    publicPath: '/js/',
-    port: 9090
-  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
+  ]
 };
