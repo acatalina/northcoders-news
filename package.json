@@ -20,7 +20,6 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "chai": "^3.5.0",
-    "css-loader": "^0.27.3",
     "eslint": "^3.17.1",
     "eslint-plugin-jsx": "0.0.2",
     "eslint-plugin-react": "^6.10.0",
@@ -41,6 +40,8 @@
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "webpack": "^2.3.3"
+    "webpack": "^2.3.3",
+    "css-loader": "^0.27.3",
+    "babel-loader": "^6.2.4"
   }
 }
