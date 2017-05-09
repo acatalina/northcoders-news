@@ -19,6 +19,7 @@
     "eslint": "^3.17.1",
     "eslint-plugin-jsx": "0.0.2",
     "eslint-plugin-react": "^6.10.0",
+    "mocha": "^3.3.0",
     "react-logger": "^1.1.0",
     "redux-logger": "^3.0.0",
     "webpack": "^2.2.1",
