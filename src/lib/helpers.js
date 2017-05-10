@@ -23,16 +23,16 @@ const getTopic = (props) => {
 };
 
 const getTime = (date) => {
-    let currentDate = new Date();
-    let elemDate = new Date(date);
-    let diffHours = currentDate.getHours() - elemDate.getHours();
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  let currentDate = new Date();
+  let elemDate = new Date(date);
+  let diffHours = currentDate.getHours() - elemDate.getHours();
+  let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    if (currentDate.toDateString() !== elemDate.toDateString()) {
-      return elemDate.getDate() + ' ' + months[elemDate.getMonth()];
-    } else {
-      return diffHours ? diffHours + 'h' : 'less than an hour ago';
-    }
+  if (currentDate.toDateString() !== elemDate.toDateString()) {
+    return elemDate.getDate() + ' ' + months[elemDate.getMonth()];
+  } else {
+    return diffHours ? diffHours + 'h' : 'less than an hour ago';
+  }
 };
 
 const sortByDate = (obj) => {
@@ -47,9 +47,9 @@ const sortByDate = (obj) => {
 };
 
 const resetInput = () => {
- return {
-  input: ''
- };
+  return {
+    input: ''
+  };
 };
 
 const articlesByVote = (state) => {

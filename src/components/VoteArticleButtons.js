@@ -3,14 +3,14 @@ import React from 'react';
 const VoteButtons = (props) => {
   return (
     <span className="column is-narrow rows">
-      <a className="is-success is-small" 
+      <a className="is-success is-small"
         onClick={props.voteHandler.bind(null, 'up')}>
-        <i className="fa fa-arrow-up row"></i>
+        <i className="fa fa-arrow-up row" />
       </a>
       <span className="row tag is-medium bold">{props.votes}</span>
-      <a className="is-success is-small" 
+      <a className="is-success is-small"
         onClick={props.voteHandler.bind(null, 'down')}>
-        <i className="fa fa-arrow-down row"></i>
+        <i className="fa fa-arrow-down row" />
       </a>
     </span>
   );

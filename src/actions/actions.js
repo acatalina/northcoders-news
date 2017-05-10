@@ -3,12 +3,12 @@ import axios from 'axios';
 
 import {ROOT} from '../../config';
 
-export function fetchArticles(topic) {
+export function fetchArticles (topic) {
   return (dispatch) => {
     let URL = `${ROOT}/articles`;
-    
+
     topic = topic.toLowerCase();
-    
+
     if (topic && topic !== 'all') {
       URL = `${ROOT}/topics/${topic}/articles`;
     }
@@ -20,12 +20,12 @@ export function fetchArticles(topic) {
         dispatch(fetchArticlesSuccess(res.data.articles, topic));
       })
       .catch(error => {
-         dispatch(fetchArticlesError(error));
+        dispatch(fetchArticlesError(error));
       });
   };
 }
 
-export function fetchArticlesSuccess(articles, topic) {
+export function fetchArticlesSuccess (articles, topic) {
   return {
     type: types.FETCH_ARTICLES_SUCCESS,
     data: articles,
@@ -33,20 +33,20 @@ export function fetchArticlesSuccess(articles, topic) {
   };
 }
 
-export function fetchArticlesError(error) {
+export function fetchArticlesError (error) {
   return {
     type: types.FETCH_ARTICLES_ERROR,
     error: error
   };
 }
 
-export function fetchArticlesRequest() {
+export function fetchArticlesRequest () {
   return {
     type: types.FETCH_ARTICLES_REQUEST
   };
 }
 
-export function fetchTopics() {
+export function fetchTopics () {
   return (dispatch) => {
     dispatch(fetchTopicsRequest());
     axios
@@ -55,7 +55,7 @@ export function fetchTopics() {
         dispatch(fetchTopicsSuccess(res.data.topics));
       })
       .catch(error => {
-         dispatch(fetchTopicsError(error));
+        dispatch(fetchTopicsError(error));
       });
   };
 }
@@ -80,7 +80,7 @@ export function fetchTopicsRequest () {
   };
 }
 
-export function fetchComments(article_id) {
+export function fetchComments (article_id) {
   return (dispatch) => {
     dispatch(fetchCommentsRequest());
     axios
@@ -89,32 +89,32 @@ export function fetchComments(article_id) {
         dispatch(fetchCommentsSuccess(res.data.comments));
       })
       .catch(error => {
-         dispatch(fetchCommentsError(error));
+        dispatch(fetchCommentsError(error));
       });
   };
 }
 
-export function fetchCommentsSuccess(comments) {
+export function fetchCommentsSuccess (comments) {
   return {
     type: types.FETCH_COMMENTS_SUCCESS,
     data: comments
   };
 }
 
-export function fetchCommentsError(error) {
+export function fetchCommentsError (error) {
   return {
     type: types.FETCH_COMMENTS_ERROR,
     error: error
   };
 }
 
-export function fetchCommentsRequest() {
+export function fetchCommentsRequest () {
   return {
     type: types.FETCH_COMMENTS_REQUEST
   };
 }
 
-export function voteArticle(article_id, vote) {
+export function voteArticle (article_id, vote) {
   return (dispatch) => {
     dispatch(voteArticleRequest());
     axios
@@ -123,46 +123,46 @@ export function voteArticle(article_id, vote) {
         dispatch(voteArticleSuccess(res.data));
       })
       .catch(error => {
-         dispatch(voteArticleError(error));
+        dispatch(voteArticleError(error));
       });
   };
 }
 
-export function voteArticleSuccess(article) {
+export function voteArticleSuccess (article) {
   return {
     type: types.VOTE_ARTICLE_SUCCESS,
     data: article
   };
 }
 
-export function voteArticleError(error) {
+export function voteArticleError (error) {
   return {
     type: types.VOTE_ARTICLE_ERROR,
     error: error
   };
 }
 
-export function voteArticleRequest() {
+export function voteArticleRequest () {
   return {
     type: types.VOTE_ARTICLE_REQUEST
   };
 }
 
-export function voteComment(comment_id, vote) {
+export function voteComment (comment_id, vote) {
   return (dispatch) => {
     dispatch(voteCommentRequest());
     axios
       .put(`${ROOT}/comments/${comment_id}?vote=${vote}`)
-      .then(res => {
+      .then(() => {
         dispatch(voteCommentSuccess(comment_id, vote));
       })
       .catch(error => {
-         dispatch(voteCommentError(error));
+        dispatch(voteCommentError(error));
       });
   };
 }
 
-export function voteCommentSuccess(comment_id, vote) {
+export function voteCommentSuccess (comment_id, vote) {
   return {
     type: types.VOTE_COMMENT_SUCCESS,
     comment_id: comment_id,
@@ -170,20 +170,20 @@ export function voteCommentSuccess(comment_id, vote) {
   };
 }
 
-export function voteCommentError(error) {
+export function voteCommentError (error) {
   return {
     type: types.VOTE_COMMENT_ERROR,
     error: error
   };
 }
 
-export function voteCommentRequest() {
+export function voteCommentRequest () {
   return {
     type: types.VOTE_COMMENT_REQUEST
   };
 }
 
-export function addComment(article_id, comment) {
+export function addComment (article_id, comment) {
   return (dispatch) => {
     dispatch(addCommentRequest());
     axios
@@ -192,32 +192,32 @@ export function addComment(article_id, comment) {
         dispatch(addCommentSuccess(res.data.comment));
       })
       .catch(error => {
-         dispatch(addCommentError(error));
+        dispatch(addCommentError(error));
       });
   };
 }
 
-export function addCommentSuccess(comment) {
+export function addCommentSuccess (comment) {
   return {
     type: types.ADD_COMMENT_SUCCESS,
     comment: comment
   };
 }
 
-export function addCommentError(error) {
+export function addCommentError (error) {
   return {
     type: types.ADD_COMMENT_ERROR,
     error: error
   };
 }
 
-export function addCommentRequest() {
+export function addCommentRequest () {
   return {
     type: types.ADD_COMMENT_REQUEST
   };
 }
 
-export function deleteComment(comment_id) {
+export function deleteComment (comment_id) {
   return (dispatch) => {
     dispatch(deleteCommentRequest());
     axios
@@ -229,32 +229,32 @@ export function deleteComment(comment_id) {
         dispatch(deleteCommentSuccess(comment_id));
       })
       .catch(error => {
-         dispatch(deleteCommentError(error));
+        dispatch(deleteCommentError(error));
       });
   };
 }
 
-export function deleteCommentSuccess(comment_id) {
+export function deleteCommentSuccess (comment_id) {
   return {
     type: types.DELETE_COMMENT_SUCCESS,
     comment_id: comment_id
   };
 }
 
-export function deleteCommentError(error) {
+export function deleteCommentError (error) {
   return {
     type: types.DELETE_COMMENT_ERROR,
     error: error
   };
 }
 
-export function deleteCommentRequest() {
+export function deleteCommentRequest () {
   return {
     type: types.DELETE_COMMENT_REQUEST
   };
 }
 
-export function fetchUsers() {
+export function fetchUsers () {
   return (dispatch) => {
     dispatch(fetchUsersRequest());
     axios
@@ -263,7 +263,7 @@ export function fetchUsers() {
         dispatch(fetchUsersSuccess(res.data.users));
       })
       .catch(error => {
-         dispatch(fetchUsersError(error));
+        dispatch(fetchUsersError(error));
       });
   };
 }

@@ -16,7 +16,7 @@ const Header = (props) => {
           </div>
         </div>
       </div>
-      <NavBar topics={props.topics}/>
+      <NavBar topics={props.topics} />
     </header>
   );
 };

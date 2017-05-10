@@ -4,7 +4,7 @@ import VoteButtons from './VoteArticleButtons';
 const Article = (props) => {
   return (
     <article className="columns">
-      <VoteButtons votes={props.votes} 
+      <VoteButtons votes={props.votes}
         voteHandler={props.voteHandler.bind(null, props._id)}
       />
       <div className="column">

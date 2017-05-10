@@ -1,3 +1,4 @@
+/* eslint-env node, mocha, chai */
 import {expect} from 'chai';
 import commentsReducer from '../src/reducer/comments.reducer';
 import * as actions from '../src/actions/actions';
@@ -16,14 +17,14 @@ describe('comments.reducer', () => {
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(initialState);
   });
-  
+
   it('handles FETCH_COMMENTS_SUCCESS', () => {
     const action = actions.fetchCommentsSuccess([{_id: 1, body: 'comment'}]);
     const initialState = {
       fetching: true,
       data: {}
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -40,7 +41,7 @@ describe('comments.reducer', () => {
       fetching: true,
       error: null
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -49,7 +50,7 @@ describe('comments.reducer', () => {
     expect(actual).to.eql(expected);
   });
 
-    it('handles VOTE_COMMENT_REQUESTS', () => {
+  it('handles VOTE_COMMENT_REQUESTS', () => {
     const action = actions.voteCommentRequest();
     const initialState = {
       fetching: false
@@ -62,14 +63,14 @@ describe('comments.reducer', () => {
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(initialState);
   });
-  
+
   it('handles VOTE_COMMENT_SUCCESS UP', () => {
     const action = actions.voteCommentSuccess(1, 'up');
     const initialState = {
       fetching: true,
       data: {1: {votes: 2}}
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -85,7 +86,7 @@ describe('comments.reducer', () => {
       fetching: true,
       data: {1: {votes: 2}}
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -101,7 +102,7 @@ describe('comments.reducer', () => {
       fetching: true,
       error: null
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -130,7 +131,7 @@ describe('comments.reducer', () => {
       fetching: true,
       data: {1: {comment: 'test'}}
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -146,7 +147,7 @@ describe('comments.reducer', () => {
       fetching: true,
       error: null
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -175,7 +176,7 @@ describe('comments.reducer', () => {
       fetching: true,
       data: {1: {comment: 'test'}}
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -191,7 +192,7 @@ describe('comments.reducer', () => {
       fetching: true,
       error: null
     };
-    
+
     const actual = commentsReducer(initialState, action);
     const expected = {
       fetching: false,

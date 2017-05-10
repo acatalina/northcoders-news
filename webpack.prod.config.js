@@ -20,7 +20,7 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/, 
+        test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
       {
@@ -36,6 +36,6 @@ module.exports = {
       }
     }),
     new webpack.optimize.UglifyJsPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 };

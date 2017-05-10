@@ -1,3 +1,4 @@
+/* eslint-env node, mocha, chai */
 import {expect} from 'chai';
 import usersReducer from '../src/reducer/users.reducer';
 import * as actions from '../src/actions/actions';
@@ -16,14 +17,14 @@ describe('users.reducer', () => {
     expect(actual).to.eql(expected);
     expect(actual).to.not.equal(initialState);
   });
-  
+
   it('handles FETCH_USERS_SUCCESS', () => {
     const action = actions.fetchUsersSuccess([{_id: 1, username: 'usertest'}]);
     const initialState = {
       fetching: true,
       data: {}
     };
-    
+
     const actual = usersReducer(initialState, action);
     const expected = {
       fetching: false,
@@ -39,7 +40,7 @@ describe('users.reducer', () => {
       fetching: true,
       error: null
     };
-    
+
     const actual = usersReducer(initialState, action);
     const expected = {
       fetching: false,

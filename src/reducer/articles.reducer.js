@@ -7,18 +7,18 @@ const initialState = {
   error: null
 };
 
-function articlesReducer(prevState = initialState, action) {
+function articlesReducer (prevState = initialState, action) {
   switch (action.type) {
     case types.VOTE_ARTICLE_REQUEST:
     case types.FETCH_ARTICLES_REQUEST: {
       const newState = Object.assign({}, prevState);
-      
+
       newState.fetching = true;
       return newState;
     }
     case types.FETCH_ARTICLES_SUCCESS: {
       const newState = Object.assign({}, prevState);
-      
+
       newState.data = normaliseData(action.data);
       newState.fetching = false;
       newState.topic = action.topic || 'all';
@@ -39,7 +39,7 @@ function articlesReducer(prevState = initialState, action) {
     case types.VOTE_ARTICLE_ERROR:
     case types.FETCH_ARTICLES_ERROR: {
       const newState = Object.assign({}, prevState);
-      
+
       newState.error = action.error;
       newState.fetching = false;
       return newState;

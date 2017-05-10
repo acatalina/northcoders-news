@@ -26,13 +26,13 @@ function commentsReducer (prevState = initialState, action) {
       const newState = Object.assign({}, prevState);
       const newData = Object.assign({}, newState.data);
       let comment = newData[action.comment_id];
-      
+
       if (action.vote === 'up') {
         comment.votes++;
       } else if (action.vote === 'down') {
         comment.votes--;
       }
-      
+
       newState.data = newData;
       newState.fetching = false;
       return newState;
@@ -40,7 +40,7 @@ function commentsReducer (prevState = initialState, action) {
     case types.ADD_COMMENT_SUCCESS: {
       const newState = Object.assign({}, prevState);
       const newData = Object.assign({}, newState.data);
-      
+
       newData[action.comment._id] = action.comment;
       newState.data = newData;
       newState.fetching = false;
@@ -49,7 +49,7 @@ function commentsReducer (prevState = initialState, action) {
     case types.DELETE_COMMENT_SUCCESS: {
       const newState = Object.assign({}, prevState);
       const newData = Object.assign({}, newState.data);
-      
+
       delete newData[action.comment_id];
       newState.data = newData;
       newState.fetching = false;

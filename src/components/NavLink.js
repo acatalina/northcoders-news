@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 
 const NavLink = (props) => {
   return (
-    <Link {...props} className={props.linkClass} activeClassName="is-active"/>
+    <Link {...props} className={props.linkClass} activeClassName="is-active" />
   );
 };
 

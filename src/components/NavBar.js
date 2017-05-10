@@ -15,14 +15,14 @@ export const NavBar = (props) => {
 };
 
 NavBar.propTypes = {
-  topics: React.PropTypes.array.isRequired 
+  topics: React.PropTypes.array.isRequired
 };
-  
+
 const generateTopics = topics => {
   return topics.map((topic, i) => {
     return (
-      <NavLink key={i} 
-        linkClass="nav-item is-tab uppercase" 
+      <NavLink key={i}
+        linkClass="nav-item is-tab uppercase"
         to={`/topics/${topic.title.toLowerCase()}`}>
         {topic.title}
       </NavLink>

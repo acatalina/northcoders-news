@@ -7,13 +7,13 @@ import Loading from './Loading';
 import Animation from 'react-addons-css-transition-group';
 
 class ArticleList extends Component {
-  render() {
+  render () {
     if (!this.isReady()) return (<Loading />);
 
     return (
       <main className="section">
         <ul className="container">
-          <Animation transitionName="main-anim" 
+          <Animation transitionName="main-anim"
             transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
             transitionAppear={true} transitionEnter={true} transitionLeave={true}>
             {this.generateArticles()}
@@ -22,14 +22,14 @@ class ArticleList extends Component {
       </main>
     );
   }
-  generateArticles() {
+  generateArticles () {
     let {articles} = this.props;
 
     return Object.keys(articles).map((key, i) => {
       let article = articles[key];
 
       return (
-        <ArticleCard 
+        <ArticleCard
           key={i}
           _id={article._id}
           title={article.title}
@@ -41,7 +41,7 @@ class ArticleList extends Component {
       );
     });
   }
-  isReady() {
+  isReady () {
     return Object.keys(this.props.articles).length;
   }
 }
@@ -51,13 +51,13 @@ ArticleList.propTypes = {
   voteHandler: React.PropTypes.func.isRequired
 };
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     articles: articlesByVote(state)
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     voteHandler: (article_id, vote) => {
       dispatch(voteArticle(article_id, vote));

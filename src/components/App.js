@@ -11,7 +11,7 @@ class App extends Component {
     this.props.fetchTopics();
     this.props.fetchArticles(getTopic(this.props));
   }
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     if (newProps.fetchingArticles || this.props.fetchingArticles) return;
 
     const newTopic = getTopic(newProps);
@@ -21,13 +21,13 @@ class App extends Component {
       this.props.fetchArticles(newTopic);
     }
   }
-  render() {
+  render () {
     return (
       <div id="main">
-        <Animation transitionName="main-anim" 
-					transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
-					transitionAppear={true} transitionEnter={true} transitionLeave={true}>
-          <Header topics={this.props.topics}/>
+        <Animation transitionName="main-anim"
+          transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
+          transitionAppear={true} transitionEnter={true} transitionLeave={true}>
+          <Header topics={this.props.topics} />
           {this.props.children}
           <Footer />
         </Animation>
@@ -36,7 +36,7 @@ class App extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     fetchArticles: (topic) => {
       dispatch(fetchArticles(topic));

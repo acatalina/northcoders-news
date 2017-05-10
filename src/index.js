@@ -19,10 +19,10 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={ArticleList}/>
-        <Route path="/topics/:topic" component={ArticleList}/>
-        <Route path="/articles/:article_id" component={ArticlePage}/>
-        <Route path="/*" component={ArticleList}/>
+        <IndexRoute component={ArticleList} />
+        <Route path="/topics/:topic" component={ArticleList} />
+        <Route path="/articles/:article_id" component={ArticlePage} />
+        <Route path="/*" component={ArticleList} />
       </Route>
     </Router>
   </Provider>,

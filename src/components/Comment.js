@@ -7,31 +7,30 @@ const Comment = (props) => {
       <article className="media">
         <div className="media-left">
           <figure className="image is-64x64">
-            <img src={props.avatar_url} alt="Image"/>
+            <img src={props.avatar_url} alt="Image" />
           </figure>
         </div>
         <div className="media-content">
           <div className="content">
             <p>
               <strong>{props.created_by}</strong> <small>{getTime(props.created_at)}</small>
-              <br/>
+              <br />
               {props.body}
             </p>
           </div>
           <nav className="level">
             <div className="level-left">
               <a className="level-item is-success fa fa-plus-circle"
-                onClick={props.voteComment.bind(null, props._id, 'up')}/>
+                onClick={props.voteComment.bind(null, props._id, 'up')} />
               <span className="level-item">Votes: {props.votes}</span>
               <a className="level-item fa fa-minus-circle"
-                onClick={props.voteComment.bind(null, props._id, 'down')}/>
+                onClick={props.voteComment.bind(null, props._id, 'down')} />
             </div>
           </nav>
         </div>
         <div>
-          <button className="delete" 
-            onClick={deleteHandler.bind(null, props)}>
-          </button>
+          <button className="delete"
+            onClick={deleteHandler.bind(null, props)} />
         </div>
       </article>
     </div>

@@ -6,14 +6,14 @@ const ArticleCard = (props) => {
   return (
     <li className="box article-hover">
       <article className="columns">
-        <VoteButtons votes={props.votes} 
-          voteHandler={props.voteHandler.bind(null, props._id)}/>
+        <VoteButtons votes={props.votes}
+          voteHandler={props.voteHandler.bind(null, props._id)} />
         <div className="column has-text-centered fullwidth">
           <NavLink to={`/articles/${props._id}`}>
             <div className="content">
               <h3 className="title is-3">{props.title}</h3>
-            <div>by: {props.created_by}</div>
-            <span>Comments: {props.comment_count}</span>
+              <div>by: {props.created_by}</div>
+              <span>Comments: {props.comment_count}</span>
             </div>
           </NavLink>
         </div>

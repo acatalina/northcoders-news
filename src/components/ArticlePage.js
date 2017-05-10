@@ -1,6 +1,6 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {fetchComments, fetchUsers, voteComment, 
+import {fetchComments, fetchUsers, voteComment,
   voteArticle, addComment, deleteComment
 } from '../actions/actions';
 import Loading from './Loading';
@@ -11,7 +11,7 @@ import {sortByDate, resetInput} from '../lib/helpers';
 import Animation from 'react-addons-css-transition-group';
 
 class ArticlePage extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
@@ -25,12 +25,12 @@ class ArticlePage extends Component {
     this.props.fetchComments(this.props.params.article_id);
     this.props.fetchUsers();
   }
-  render() {
+  render () {
     if (!this.isReady()) return (<Loading />);
-    
+
     return (
       <main className="section">
-        <Animation transitionName="main-anim" 
+        <Animation transitionName="main-anim"
           transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={500}
           transitionAppear={true} transitionEnter={true} transitionLeave={true}>
           <section className="container box">
@@ -44,7 +44,7 @@ class ArticlePage extends Component {
       </main>
     );
   }
-  generateArticle() {
+  generateArticle () {
     let {article_id} = this.props.params;
     let article = this.props.articles[article_id];
 
@@ -60,15 +60,15 @@ class ArticlePage extends Component {
       />
     );
   }
-  generateComments() {
+  generateComments () {
     let {comments} = this.props;
     let {users} = this.props;
-    
+
     return Object.keys(comments).map((key, i) => {
       let comment = comments[key];
-      
+
       return (
-        <Comment 
+        <Comment
           key={i}
           _id={comment._id}
           votes={comment.votes}
@@ -82,9 +82,9 @@ class ArticlePage extends Component {
       );
     });
   }
-  generateForm() {
+  generateForm () {
     return (
-      <PostCommentForm 
+      <PostCommentForm
         inputHandler={this.inputHandler}
         submitHandler={this.submitHandler}
         input={this.state.input}
@@ -92,14 +92,14 @@ class ArticlePage extends Component {
       />
     );
   }
-  inputHandler(event) {
+  inputHandler (event) {
     let {value} = event.target;
 
     this.setState({
       input: value
     });
   }
-  submitHandler(event) {
+  submitHandler (event) {
     event.preventDefault();
 
     let {article_id} = this.props.params;
@@ -110,15 +110,15 @@ class ArticlePage extends Component {
     this.setState(resetInput);
   }
   isReady () {
-    return Object.keys(this.props.comments).length && 
-      Object.keys(this.props.articles).length && 
+    return Object.keys(this.props.comments).length &&
+      Object.keys(this.props.articles).length &&
       Object.keys(this.props.users).length;
   }
 }
 
 ArticlePage.propTypes = {
   fetchComments: React.PropTypes.func.isRequired,
-  fetchUsers: React.PropTypes.func.isRequired,  
+  fetchUsers: React.PropTypes.func.isRequired,
   params: React.PropTypes.object.isRequired,
   articles: React.PropTypes.object.isRequired,
   comments: React.PropTypes.array.isRequired,
@@ -129,7 +129,7 @@ ArticlePage.propTypes = {
   deleteComment: React.PropTypes.func.isRequired
 };
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     fetchComments: (article_id) => {
       dispatch(fetchComments(article_id));
@@ -152,7 +152,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     articles: state.articles.data,
     comments: sortByDate(state.comments.data),
